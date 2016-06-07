@@ -1,0 +1,9 @@
+Example Text
+
+Built as CSE324 term project.
+
+Built with Django & Bootstrap
+
+Created for Starters of all kinds. 
+
+Always Open Source

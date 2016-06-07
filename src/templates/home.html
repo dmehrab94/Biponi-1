@@ -1,0 +1,138 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load staticfiles %}
+
+
+{% block head_title %}Welcome | {{ block.super }}{% endblock %}
+
+<!--<style>
+    #navBarSearchForm input[type=text]{width:430px !important;}
+</style>-->
+
+<style>
+{% block style %}
+.navbar-static-top {
+	margin-bottom: 0px !important;
+}
+
+.navBarSearchForm{
+	input[type=text]{width:730px !important;}
+}
+
+.jumbotron {
+	background-color:#5ACDFF;
+	color: #000;
+	{% if featured_image.make_image_background %} 
+	background-image: url("{{ featured_image.image.url }}");
+	background-repeat: no-repeat;
+	background-color: #000;
+	background-size: cover;
+	background-position-y: -272px;
+	{% endif %}
+}
+
+{% endblock %}
+</style>
+
+
+     
+{% block jumbotron %}
+
+	{% if featured_image %}
+		<div class="jumbotron" >
+		 <div class="container">
+			<div class="row">
+				<div class='col-sm-12 text-center {% if featured_image.text_right %} pull-right {% endif %}'>
+				<h1>{{ featured_image.product.title }}</h1>
+				<p>{{ featured_image.product.description }}</p>
+				<p>
+				<a class="btn btn-lg btn-primary" href="{{ featured_image.product.get_absolute_url }}" role="button">More Details </a>
+				</p>
+				</div>
+				{% if not featured_image.make_image_background %} 
+				<div class='col-sm-6' >
+					<img src="{{ featured_image.image.url }}" class='img-responsive' />
+		 		</div>
+		 		{% endif %}
+				</div>
+			</div>
+		 </div>
+
+	 {% endif %}
+
+
+{% endblock %}
+
+
+
+
+{% block content %}
+
+<div class='row'>
+<h3>Recommended Products</h3>
+{% include "products/products.html" with object_list=products col_class_set="col-sm-2" %}
+
+</div>
+
+<div class='row'>
+<h3>Featured Products</h3>
+{% include "products/products.html" with object_list=products2 %}
+
+</div>
+
+<!--here start-->
+ {% if request.user.is_authenticated %}
+ <div align="center">
+ 	<p1>You are logged in</p1>
+ </div>
+
+
+	{% if queryset %}
+	<h2>Welcome Staff</h2>
+	<table class='table'>
+	{% for instance in queryset %}
+		<tr><td>{{ forloop.counter }}</td><td>{{ instance.email }}</td><td>{{ instance.full_name }}</td><td>{{ instance.timestamp|timesince }} ago</td></tr>
+		{% if instance.email == "abc@gmail.edu" %}
+		<tr><td>is equal</td></tr>
+		{% endif %}
+	{% endfor %}
+	</table>
+
+	{% endif %}
+
+ {% else %}
+<div class="row">
+
+  	<div class="col-sm-3 pull-right">
+  	
+			<p class='lead text-align-center'>{{ title }}</p>
+
+			<form method='POST' action=''>{% csrf_token %}
+			{{ form|crispy }}
+
+			<input class='btn btn-primary' type='submit' value='Sign Up' />
+
+			</form>
+	</div>
+
+<div class='col-sm-3'>
+<img src='{% static "img/BUET_logo.png" %}' height="250px" width="250px" class='img-responsive' />
+</div>
+
+<div class='col-sm-6'>
+<p class='lead text-align-center'><big><strong>CSE 324 term project</strong></big><br/><br/>
+</p>
+<p> This is a project for CSE 324, a 0.75 credit course, conducted at Department of CSE, BUET.
+This was kindly supervised by <strong>Nazmus Saquib</strong>, Lecturer, CSE, BUET. The team behind this project consisted of two students, <a href="https://www.facebook.com/lionheartdipto7"><strong>Dipto Das</strong></a> and <a href="https://www.facebook.com/zakaria.mehrab"><strong>Zakaria Mehrab</strong></a>.</p>
+<p>Technologies used in this project: <strong>Django</strong>, <strong>MySQL</strong>, <strong>Bootstrap3</strong>, <strong>Braintree</strong>, <strong>Github</strong></p>
+
+</div>
+
+
+</div>
+{% endif %}
+<!--here end-->
+<div class="footer" align="center">
+            <p><strong>Copyright (c) 2016</strong></p>
+        </div>
+{% endblock %}

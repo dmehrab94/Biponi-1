@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+
+{% block content %}
+<!--
+<div class='row'>
+<div class='col-sm-6 col-sm-offset-3'>
+<h1>About Us</h1>
+<p>This is about us. This is about us.This is about us.This is about us.This is about us.This is about us.This is about us.This is about us.</p>
+<p>This is about us. This is about us.This is about us.This is about us.This is about us.This is about us.This is about us.This is about us.</p>
+<p>This is about us. This is about us.This is about us.This is about us.This is about us.This is about us.This is about us.This is about us.</p>
+</div>
+
+</div>-->
+<div class='container'>
+    <div class='row'>
+      <div class='col-md-6'>
+        <img class='img-circle' src='{% static "img/Dipto.jpg" %}' height="250px" width="250px" class='img-responsive' />
+        <h2>Dipto Das</h2>
+        <p>Student ID: 1205080</p>
+      </div>
+
+      <div class='col-md-6'>
+        <img class='img-circle' src='{% static "img/Zakaria.jpg" %}' height="250px" width="250px" class='img-responsive' />
+        <h2>Zakaria Mehrab</h2>
+        <p>Student ID: 1205112</p>
+      </div>
+    </div>
+  </div>
+
+
+{% endblock %}
